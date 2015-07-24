@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Classes" xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+<!--配置你的实体类的别名，一般的都是一个实体类对应一个xml-->
+<alias>
+  <typeAlias alias="classes" type="Test.Domain.Person,Model" />
+</alias>
+<!--找到你的实体类与数据库字段的对应关系，如果数据库字段与实体类一样 这个可以省略不要-->
+<resultMaps>
+  <resultMap id="SelectAllResult" class="classes">
+    <result property="Id" column="calsses_id" />
+    <result property="Name" column="classes_name" />
+    <result property="Description" column="classes_description" />
+  </resultMap>
+</resultMaps>
+  <statements>
+    <!--查询操作 id是你在操作类（也就是我的项目中的service类）中要用到的，resultMap表示返回结果的类型-->
+    <select id="SelectAllClasses" resultMap="SelectAllResult">
+      select  calsses_id as Id,
+      classes_name as Name,
+      classes_description as Description
+      from Person
+    </select>
+    <!--查询操作 id是你在操作类（也就是我的项目中的service类）中要用到的，resultMap表示返回结果的类型，parameterClass传过来参数的类型，要注意传过来的参数名要跟下面的字段可以一样也可以不一样。-->
+    <select id="SelectByClassesId" resultClass="classes" parameterClass="int">
+      select
+      calsses_id as Id,
+      classes_name as Name,
+      from Person
+      where calsses_id = #calsses_id#
+    </select>
+    <!--添加操作 id是你在操作类（也就是我的项目中的service类）中要用到的，parameterClass传过来参数的类型，这里是实体类。注意下面的selectKey，如果你的id是自增的它会自动把值赋给id-->
+    <insert id="InsertClasses" parameterClass="classes">
+      <selectKey property="Id" type="post" resultClass="int">
+        ${selectKey}
+      </selectKey>
+      insert into Person(classes_name,classes_description) values(#Name#,#Description#)
+    </insert>
+    <!--修改操作 id是你在操作类（也就是我的项目中的service类）中要用到的，parameterClass传过来参数的类型，这里是实体类。-->
+    <update id="UpdateClasses" parameterClass="classes">
+      update Person set classes_name=#Name#,
+      classes_description=#Description#
+      where calsses_id=#Id#
+    </update>
+    <!--删除操作 id是你在操作类（也就是我的项目中的service类）中要用到的，parameterClass传过来参数的类型-->
+    <delete id="DeleteClasses" parameterClass="int">
+      delete Person
+      where calsses_id = #calsses_id#
+    </delete>
+  </statements>
+</sqlMap>
