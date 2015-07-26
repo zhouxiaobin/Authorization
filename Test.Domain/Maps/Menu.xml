@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Menu" xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <!--配置你的实体类的别名，一般的都是一个实体类对应一个xml-->
+  <alias>
+    <typeAlias alias="Menu" type="Test.Domain.Menu,Test.Domain" />
+  </alias>
+  <!--找到你的实体类与数据库字段的对应关系，如果数据库字段与实体类一样 这个可以省略不要-->
+  <resultMaps>
+    <resultMap id="Menu1" class="Menu">
+      <result property="Id" column="Id" />
+      <result property="ParentId" column="Parent_Id" />
+      <result property="MenuName" column="MenuName" />
+      <result property="Url" column="Url" />
+      <result property="Remark" column="Remark" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <select id="Sel" resultMap="Menu1" parameterClass="Hashtable">
+      select *
+      from tb_role where id =#id#
+    </select>
+    <select id="selMenuByRoleId" parameterClass="int" resultMap="Menu1">
+      <![CDATA[select * from tb_menu  where  id in (select menuId from [dbo].[tb_role_menu] where roleid=#roleid#)]]>
+    </select>
+
+  </statements>
+</sqlMap>
+

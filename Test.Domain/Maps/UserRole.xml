@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="UserRole" xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <!--配置你的实体类的别名，一般的都是一个实体类对应一个xml-->
+  <alias>
+    <typeAlias alias="RoleUser" type="Test.Domain.RoleUser,Test.Domain" />
+  </alias>
+  <!--找到你的实体类与数据库字段的对应关系，如果数据库字段与实体类一样 这个可以省略不要-->
+  <resultMaps>
+    <resultMap id="RoleUser1" class="RoleUser">
+      <result property="Id" column="Id" />
+      <result property="UserId" column="UserId" />
+      <result property="RoleId" column="RoleId" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <select id="Sel" resultMap="RoleUser1" parameterClass="Hashtable">
+      select *
+      from tb_user_role where userId =#userId# 
+    </select>
+
+
+  </statements>
+</sqlMap>

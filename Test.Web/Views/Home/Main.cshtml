@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Main";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    这是首页
+</div>
+<div id="afa"  style="cursor: pointer">
+    afa
+</div>
+<div>////////////////////</div>
+<div>
+    <span id="test1" style="cursor: pointer">跳转到test1页面</span>
+</div>
+<div>////////////////////</div>
+<div>////////////////////</div>
+<div>////////////////////</div>
+<div>////////////////////</div>
+<div >
+    <span id="test2" style="cursor: pointer">跳转到test2页面</span>
+</div>
+<script>
+    $(function() {
+        $("#test1").click(function () {
+            var url = "/Home/Test1";
+            $.post("/Home/checkAnthoriza", { url: url }, function(data) {
+                if (data.status == "1") {
+                    window.location.href = '/Home/Test1';
+                } else {
+                    alert(data.msg);
+                }
+            },"json");
+        });
+        $("#test2").click(function () {
+            var url = "/Home/Test2";
+            $.post("/Home/checkAnthoriza", { url: url }, function (data) {
+                if (data.status == "1") {
+                    window.location.href = '/Home/Test2';
+                } else {
+                    alert(data.msg);
+                }
+            }, "json");
+        });
+    })
+</script>

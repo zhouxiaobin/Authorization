@@ -15,5 +15,7 @@ namespace Test.Service
 		/// <param name="parameterObject">参数集</param>
 		/// <returns>泛型数据列表</returns>
 		IList<T> QueryForList<T>(string statementName, object parameterObject);
+
+		object QueryForObject<T>(string statementName, object parameterObject);
 	}
 }

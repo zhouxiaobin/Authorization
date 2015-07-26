@@ -33,5 +33,11 @@ namespace Test.Service
 		{
 			return repository.QueryForList<T>(statementName, parameterObject);
 		}
+		public object QueryForObject<T>(string statementName, object parameterObject)
+		{
+			return repository.QueryForObject<T>(statementName, parameterObject);
+		}
+
+
 	}
 }

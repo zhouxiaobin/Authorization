@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Role" xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <!--配置你的实体类的别名，一般的都是一个实体类对应一个xml-->
+  <alias>
+    <typeAlias alias="Role" type="Test.Domain.Role,Test.Domain" />
+  </alias>
+  <!--找到你的实体类与数据库字段的对应关系，如果数据库字段与实体类一样 这个可以省略不要-->
+  <resultMaps>
+    <resultMap id="Role1" class="Role">
+      <result property="Id" column="Id" />
+      <result property="RoleName" column="RoleName" />
+      <result property="CreateTime" column="CreateTime" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <select id="Sel" resultMap="Role1" parameterClass="Hashtable">
+      select *
+      from tb_role where id =#id#
+    </select>
+    <select id="selRoleByUserId" parameterClass="int" resultMap="Role1">
+      <![CDATA[select * from [dbo].[tb_role]  where  id in (select roleid from [dbo].[tb_user_role] where userid=#userid#)]]>
+    </select>
+
+  </statements>
+</sqlMap>
+

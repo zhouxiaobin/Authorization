@@ -20,5 +20,17 @@ namespace Test.Respository
 			ISqlMapper sqlMap = MyIbatisNet.SqlMap;
 			return RepositoryBase.QueryForList<T>(sqlMap, statementName, parameterObject);
 		}
+
+		public object QueryForObject<T>(string statementName, object parameterObject)
+		{
+			ISqlMapper sqlMap = MyIbatisNet.SqlMap;
+			return RepositoryBase.QueryForObject<T>(sqlMap, statementName, parameterObject);
+		}
+
+		public  string GetRuntimeSql(string statementName, object paramObject)
+		{
+			ISqlMapper sqlMap = MyIbatisNet.SqlMap;
+			return RepositoryBase.GetRuntimeSql(sqlMap, statementName, paramObject);
+		}
 	}
 }

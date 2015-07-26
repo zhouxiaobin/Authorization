@@ -1,39 +1,59 @@
-﻿@model IEnumerable<Test.Domain.Person>
-
+﻿@model Test.Domain.User
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "用户登录";
 }
 
-<h2>Index</h2>
+<div class="row">
+    <div class="form-horizontal" style="max-width: 350px;padding: 15px; margin: 0 auto;">
+        <div class="form-group row">
+            <div class="col-md-offset-2 col-md-10">
+                <h2>用户登录</h2>
+            </div>
+        </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
+        <div class="form-group">
+            <div class="col-md-12">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control input-lg", placeholder = "登录邮箱" })
+            </div>
+        </div>
 
-</table>
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.PasswordFor(model => model.UserPwd, new { @class = "form-control input-lg", placeholder = "登录密码" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.ValidationSummary(false)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <button id="submit" class="btn btn-primary">登录</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#submit").click(function () {
+            checkLogin();
+        });
+
+        function checkLogin() {
+            var username = $("#UserName").val();
+            var userpwd = $("#UserPwd").val();
+            $.post("/Home/CheckLogin", { username: username, userpwd: userpwd }, function (data) {
+                if (data.status == "1") {
+                    window.location.href = '/Home/Main';
+                } else {
+                    alert(data.msg);
+                }
+
+            }, "json");
+        }
+    })
+</script>
