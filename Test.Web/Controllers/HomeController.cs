@@ -23,7 +23,7 @@ namespace Test.Web.Controllers
 
 	    public ActionResult Index()
         {
-			var persons = _iBaseService.QueryForList<Person>("SelectAllClasses", null);
+			var persons = _iBaseService.QueryForList<Person>("Students.SelectAllClasses", null);
 			return View(persons);
         }
 	}

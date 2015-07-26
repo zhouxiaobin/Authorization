@@ -61,14 +61,20 @@
     <None Include="database.config" />
     <None Include="packages.config" />
     <None Include="providers.config" />
-    <None Include="sqlmap.config">
+    <EmbeddedResource Include="sqlmap.config">
       <SubType>Designer</SubType>
-    </None>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Maps\StudentManage.xml">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Test.Domain\Test.Domain.csproj">
+      <Project>{2f579817-1f40-4116-bd9f-46bcf9aaab2e}</Project>
+      <Name>Test.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
